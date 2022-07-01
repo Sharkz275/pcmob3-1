@@ -1,16 +1,29 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./BlockRGB";
+import { useState} from "react"
 
 function HomeScreen() {
+  
+  const [colorArray, setColorArray] = useState ([
+    { red: 255, green: 0, blue: 0, id: "0"}
+  ]);
+
+  function renderItem({item}) {
+    return<BlockRGB red={item.red} green={item.green} blue={item.blue} />;
+  }
+  
   return (
     <View style={styles.container}>
-      <BlockRGB red={255} green={0} blue={0} />
-      <BlockRGB red={0} green={255} blue={0} />
-      <BlockRGB red={0} green={0} blue={255} />
+      <TouchableOpacity><Text>Add Colour</Text></TouchableOpacity>
+      <FlatList 
+        data={colorArray}
+        renderItem={renderItem}
+        style={{width: "100%"}}
+      />
     </View>
   );
  
