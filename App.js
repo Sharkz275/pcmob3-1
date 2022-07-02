@@ -15,10 +15,32 @@ function HomeScreen() {
   function renderItem({item}) {
     return<BlockRGB red={item.red} green={item.green} blue={item.blue} />;
   }
-  
+
+  function addColor() {
+    setColorArray([
+      
+      {
+        red: Math.floor(Math.random() * 256),
+        green: Math.floor(Math.random() * 256),
+        blue: Math.floor(Math.random() * 256),
+        id: `${colorArray.length}`,
+      },
+      ...colorArray,
+    ]);
+  }
+ 
+  function resetColor() {
+    setColorArray([]);
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity><Text>Add Colour</Text></TouchableOpacity>
+      <TouchableOpacity onPress={addColor}>
+        <Text>Add Colour</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={resetColor}>
+        <Text>Reset Colour</Text>
+      </TouchableOpacity>
       <FlatList 
         data={colorArray}
         renderItem={renderItem}
